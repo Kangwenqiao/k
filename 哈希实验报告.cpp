@@ -14,7 +14,7 @@ typedef struct hs
 {
 	int vexs;
 }key[maxint];
-
+int p;
 status create(list_ l)
 {
 	int leng; int i, j,num;
@@ -26,12 +26,14 @@ status create(list_ l)
 		l[i].num = num;
 		l[i].state = uncreate;
 	}
+	
+	cin >> p;
 	return succ;
 }
 int hs_function(int n)
 {
 	int hs;
-	hs = n % 11;
+	hs = n % p;
 	return hs;
 }
 status hs(list_ l, key k)
@@ -39,7 +41,7 @@ status hs(list_ l, key k)
 	int long_ = l->length; int key_;
 	int i, j;
 
-	for (i = 0; i <= l->length; i++)
+	for (i = 0; i <= p; i++)
 	{
 		k[i].vexs = maxint;
 	}
@@ -60,7 +62,7 @@ status dea_conflict(list_ l, key k)
 	{
 		if (l[i].state == uncreate)
 		{
-			for (j = l[i].key;j<l->length; j++)
+			for (j = l[i].key;j<p; j++)
 			{
 				if (k[j].vexs == maxint) { k[j].vexs = l[i].num, l[i].state = succ; break;}
 			}
@@ -70,15 +72,16 @@ status dea_conflict(list_ l, key k)
 	{
 		if (l[i].state == uncreate)
 		{
-			for (j = 1; j < l->length; j++)
+			for (j = 1; j < p; j++)
 			{
 				if (k[j].vexs==maxint) k[j].vexs = l[i].num, l[i].state = succ;
 			}
 		}
 	}
 
-	for (i = 0; i < l->length; i++)
+	for (i = 0; i < p; i++)
 	{
+		if(k[i].vexs!=maxint)
 		cout << k[i].vexs<<' ';
 	}
 
