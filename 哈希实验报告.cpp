@@ -88,21 +88,21 @@ status dea_conflict(list_ l, key k)//冲突处理
 
 	return succ;
 }
-status find(list_ l, int key_,key k)
+status find(list_ l, int key_, key k)
 {
 	int num = key_; int i = 1; int hi;
 	key_ = hs_function(key_);
 	if (k[key_].vexs == nullkey) return fall;
-	else if (k[key_].vexs == num) {  cout << num << "在" << key_ << " find  " << i << "次"; return succ;}
+	else if (k[key_].vexs == num) { cout << num << "在" << key_ << " find  " << i << "次"<<endl; return succ; }
 	else
 	{
 		for (int j = 1; j < l->length; j++)
 		{
-			hi = (key_ + i) % p;
+			hi = (key_ + j) % p;
 			if (k[hi].vexs == nullkey) return fall;
-			else if(k[hi].vexs==num)
+			else if (k[hi].vexs == num)
 			{
-				cout << num << "在" << key_ << " find" << i + j << "次";
+				cout << num << "在" << hi << " find" << i + j << "次"<<endl;
 				return succ;
 			}
 		}
@@ -114,10 +114,17 @@ int main()
 	list_ l; key k;
 	create(l);
 	hs(l, k);
-	cout << "key " << "add "<<endl;
+	cout << "key " << "add " << endl;
 	dea_conflict(l, k);
-	int key_; cin >> key_;
-	int num = find(l,key_, k);
-	if (num == fall) cout << "not found";
+	for (int i = 1; i <= l->length; i++)
+	{
+		int key_; cin >> key_;
+		if (key_ == 54)
+		{
+			key_ = key_;
+		}
+		int num = find(l, key_, k);
+		if (num == fall) cout << "not found"<<endl;
+	}
 	return 0;
 }
