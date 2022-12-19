@@ -2,7 +2,8 @@
 #include<iostream>
 using namespace std;
 #define maxint 100
-typedef enum status{succ,fall,uncreate}status;
+typedef enum status { succ, fall, uncreate }status;
+#define nullkey 0
 typedef struct listion
 {
 	status state;
@@ -17,7 +18,7 @@ typedef struct hs
 int p;
 status create(list_ l)
 {
-	int leng; int i, j,num;
+	int leng; int i, j, num;
 	cin >> leng;//输入元素个数
 	l->length = leng;
 	for (i = 1; i <= l->length; i++)
@@ -26,7 +27,7 @@ status create(list_ l)
 		l[i].num = num;
 		l[i].state = uncreate;//加入初始数组的状态全都是未载入哈希
 	}
-	
+
 	cin >> p;
 	return succ;
 }
@@ -50,7 +51,7 @@ status hs(list_ l, key k)
 	{
 		key_ = hs_function(l[i].num);//哈希函数求key值
 		l[i].key = key_;
-		if (k[key_].vexs==maxint)
+		if (k[key_].vexs == maxint)
 			k[key_].vexs = l[i].num, l[i].state = succ;//对成功写入的进行标记成功
 	}
 	return succ;
@@ -62,9 +63,9 @@ status dea_conflict(list_ l, key k)//冲突处理
 	{
 		if (l[i].state == uncreate)
 		{
-			for (j = l[i].key;j<p; j++)
+			for (j = l[i].key; j < p; j++)
 			{
-				if (k[j].vexs == maxint) { k[j].vexs = l[i].num, l[i].state = succ; break;}
+				if (k[j].vexs == maxint) { k[j].vexs = l[i].num, l[i].state = succ; break; }
 			}
 		}
 	}
@@ -74,24 +75,49 @@ status dea_conflict(list_ l, key k)//冲突处理
 		{
 			for (j = 1; j < p; j++)
 			{
-				if (k[j].vexs==maxint) k[j].vexs = l[i].num, l[i].state = succ;
+				if (k[j].vexs == maxint) k[j].vexs = l[i].num, l[i].state = succ;
 			}
 		}
 	}
 
 	for (i = 0; i < p; i++)//打印散列
 	{
-		if(k[i].vexs!=maxint)
-		cout << k[i].vexs<<' '<<i<<endl;
+		if (k[i].vexs != maxint)
+			cout << k[i].vexs << ' ' << i << endl;
 	}
 
 	return succ;
+}
+status find(list_ l, int key_,key k)
+{
+	int num = key_; int i = 1; int hi;
+	key_ = hs_function(key_);
+	if (k[key_].vexs == nullkey) return fall;
+	else if (k[key_].vexs == num) {  cout << num << "在" << key_ << " find  " << i << "次"; return succ;}
+	else
+	{
+		for (int j = 1; j < l->length; j++)
+		{
+			hi = (key_ + i) % p;
+			if (k[hi].vexs == nullkey) return fall;
+			else if(k[hi].vexs==num)
+			{
+				cout << num << "在" << key_ << " find" << i + j << "次";
+				return succ;
+			}
+		}
+		return fall;
+	}
 }
 int main()
 {
 	list_ l; key k;
 	create(l);
 	hs(l, k);
+	cout << "key " << "add "<<endl;
 	dea_conflict(l, k);
+	int key_; cin >> key_;
+	int num = find(l,key_, k);
+	if (num == fall) cout << "not found";
 	return 0;
 }
