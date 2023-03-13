@@ -1,0 +1,9 @@
+map函数的库函数为    #include<map>
+一般来说设立一个map类型的容器 需要这几个步骤
+1.map<数据类型1,数据类型2> test            数据类型1为key类型也就是一个容器的关键字
+                                          数据类型2为value类型也就是一个容器的数据
+                                          add：map和set一样都是使用红黑树来存储数据
+2.test.insert(make_pair(数据类型1，数据类新2))    数据的载入
+
+
+3.test.find(数据类型1)->second            返回的是key值对应的value
