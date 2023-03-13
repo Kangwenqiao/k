@@ -1,0 +1,8 @@
+set函数
+声明     set<数据类型> test;
+载入函数  test.insert();
+删除     test.erase()
+
+进行寻找之前必须进行count操作
+test.count()   通过其返回值为判断是否存在该元素
+test.find()    进行寻找
