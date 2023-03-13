@@ -6,4 +6,9 @@ map函数的库函数为    #include<map>
 2.test.insert(make_pair(数据类型1，数据类新2))    数据的载入
 
 
-3.test.find(数据类型1)->second            返回的是key值对应的value
+3.test.find(数据类型1)->second            返回的是key值对应的value,如果是first返回的则是该迭代器的key值
+
+
+
+
+test.erase(key)   对于map的删除
